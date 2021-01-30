@@ -1,3 +1,18 @@
+/*
+ * HOW TO PLAY
+ * 
+ * Blinks boot in setup mode (4 colors)
+ * Double click one Blink to go into Game mode
+ * Each Blink will slowly pulse it's "lost" color
+ * Then it will begin to peridoically flash random colors
+ * Click the Blink when the random color matches the "lost" color
+ * A correct click will freeze the color and add little white correct marks
+ * The game ends when you get every Blink to that state
+ * Triple-click any Blink to send them all back to setup mode
+ * Good luck!
+ * 
+ */
+
 enum gameStates {SETUP, PLAY, END};
 byte gameState = SETUP;
 
