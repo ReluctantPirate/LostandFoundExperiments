@@ -1,17 +1,17 @@
 /*
- * HOW TO PLAY
- * 
- * Blinks boot in setup mode (4 colors)
- * Double click one Blink to go into Game mode
- * Each Blink will slowly pulse it's "lost" color
- * Then it will begin to peridoically flash random colors
- * Click the Blink when the random color matches the "lost" color
- * A correct click will freeze the color and add little white correct marks
- * The game ends when you get every Blink to that state
- * Triple-click any Blink to send them all back to setup mode
- * Good luck!
- * 
- */
+   HOW TO PLAY
+
+   Blinks boot in setup mode (4 colors)
+   Double click one Blink to go into Game mode
+   Each Blink will slowly pulse it's "lost" color
+   Then it will begin to peridoically flash random colors
+   Click the Blink when the random color matches the "lost" color
+   A correct click will freeze the color and add little white correct marks
+   The game ends when you get every Blink to that state
+   Double-click any Blink to send them all back to setup mode
+   Good luck!
+
+*/
 
 enum gameStates {SETUP, PLAY, END};
 byte gameState = SETUP;
@@ -23,7 +23,12 @@ Timer shuffleTimer;
 #define SHUFFLE_INTERVAL 1000
 #define SHUFFLE_VARIANCE 500
 
-Color possibleColors[4] = {RED, YELLOW, GREEN, CYAN};
+#define COLOR1 makeColorRGB(255, 50, 0)//REDDISH 
+#define COLOR2 makeColorRGB(255, 255, 50)//YELLOWISH
+#define COLOR3 makeColorRGB(0, 255, 50)//GREENISH
+#define COLOR4 makeColorRGB(25, 0, 255)//BLUISH
+
+Color possibleColors[4] = {COLOR1, COLOR2, COLOR3, COLOR4};
 byte secretColor = 0;
 byte shuffleColor = 0;
 
@@ -34,6 +39,8 @@ void setup() {
 }
 
 void loop() {
+
+
   switch (gameState) {
     case SETUP:
       setupLoop();
@@ -50,6 +57,9 @@ void loop() {
   }
 
   setValueSentOnAllFaces(gameState);
+
+  buttonSingleClicked();
+  buttonDoubleClicked();
 }
 
 void setupLoop() {
@@ -77,7 +87,7 @@ void setupLoop() {
 void playLoop() {
 
   //listen for multi-clicks to go back to SETUP
-  if (buttonMultiClicked() && buttonClickCount() == 3) {
+  if (buttonDoubleClicked()) {
     gameState = END;
   }
 
